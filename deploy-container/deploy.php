@@ -15,6 +15,16 @@
 
         }
     }
+    // Stop a running container.
+    function stopContainer($containerName) {
+        echo exec('docker stop '.$containerName);
+    }
+    // Remove the container.
+    function removeContainer($containerName) {
+        echo exec('docker rm '.$containerName);
+    }
     //pullContainer('debian:latest');
     runContainer('debian:latest', 'testdeb');
+    stopContainer('testdeb');
+    removeContainer('testdeb');
 ?>
