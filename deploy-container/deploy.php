@@ -10,18 +10,21 @@
         // Run the container based on the parameters.
         if($daemonize == TRUE && ($internalPort == NULL && $externalPort == NULL)) {
             $command = 'docker run -d -it --name '.$containerName.' '.$containerImage.' /bin/bash';
-            echo exec($command);
+            exec($command, $output, $returnval);
+            echo $returnval."\n".$output[0]."\n";
         } else {
 
         }
     }
     // Stop a running container.
     function stopContainer($containerName) {
-        echo exec('docker stop '.$containerName);
+        exec('docker stop '.$containerName, $output, $returnval);
+        echo $output[0]."\n";
     }
     // Remove the container.
     function removeContainer($containerName) {
-        echo exec('docker rm '.$containerName);
+        exec('docker rm '.$containerName, $output, $returnval);
+        echo $output[0]."\n";
     }
     //pullContainer('debian:latest');
     runContainer('debian:latest', 'testdeb');
