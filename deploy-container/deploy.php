@@ -3,7 +3,12 @@
     // Pull a container image from a container repository.
     function pullContainer($containerImage) {
         // Run the command on the localhost to pull a container.
-        echo exec('docker pull '.$containerImage);
+        exec('docker pull '.$containerImage, $output, $returnval);
+        if($returnval != 0) {
+            echo "The image could not be pulled.\n";
+        } else {
+            echo "The image was pulled successfully.\n";
+        }
     }
     // Run a container with an external port and name.
     function runContainer($containerImage, $containerName, $internalPort = NULL, $externalPort = NULL, $daemonize = TRUE) {
@@ -26,8 +31,8 @@
         exec('docker rm '.$containerName, $output, $returnval);
         echo $output[0]."\n";
     }
-    //pullContainer('debian:latest');
-    runContainer('debian:latest', 'testdeb');
-    stopContainer('testdeb');
-    removeContainer('testdeb');
+    pullContainer('memcached:latest');
+    //runContainer('debian:latest', 'testdeb');
+    //stopContainer('testdeb');
+    //removeContainer('testdeb');
 ?>
